@@ -24,11 +24,25 @@ jobs:
             irods: "4.2.7"
             server_image: "ghcr.io/wtsi-npg/ub-16.04-irods-4.2.7:latest"
             baton: "4.0.0"
+            id_gen: "3.0.0"
             experimental: false
+          - perl: "5.22.4"
+            irods: "4.2.7"
+            server_image: "ghcr.io/wtsi-npg/ub-16.04-irods-4.2.7:latest"
+            baton: "4.0.0"
+            id_gen: "devel"
+            experimental: true
           - perl: "5.22.4"
             irods: "4.2.11"
             server_image: "ghcr.io/wtsi-npg/ub-18.04-irods-4.2.11:latest"
             baton: "4.0.0"
+            id_gen: "3.0.0"
+            experimental: true
+          - perl: "5.22.4"
+            irods: "4.2.11"
+            server_image: "ghcr.io/wtsi-npg/ub-18.04-irods-4.2.11:latest"
+            baton: "4.0.0"
+            id_gen: "devel"
             experimental: true
 
     services:
@@ -177,8 +191,7 @@ jobs:
 
       - name: "Install Python dependencies"
         run: |
-          python3 -m pip install git+https://github.com/wtsi-npg/npg_id_generation@$WTSI_NPG_BUILD_BRANCH ||
-          python3 -m pip install git+https://github.com/wtsi-npg/npg_id_generation@devel
+          python3 -m pip install git+https://github.com/wtsi-npg/npg_id_generation@${{ matrix.id_gen }}
         env:
           WTSI_NPG_BUILD_BRANCH: ${{ github.base_ref || github.ref }} #getting name of current github branch
 
